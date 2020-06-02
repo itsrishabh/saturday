@@ -10,11 +10,16 @@ const detailsQuery = graphql`
       description
       keywords
       author
+      image {
+        asset {
+          _id
+        }
+      }
     }
   }
 `
 
-function SEO ({ description, lang, meta, keywords = [], title }) {
+function SEO({ description, image, lang, meta, keywords = [], title, url }) {
   return (
     <StaticQuery
       query={detailsQuery}
@@ -23,6 +28,8 @@ function SEO ({ description, lang, meta, keywords = [], title }) {
           return
         }
         const metaDescription = description || data.site.description
+        const socialImage = image || 'https://saturday.chat/img/social.png'
+        const siteUrl = url || 'https://saturday.chat/'
         return (
           <Helmet
             htmlAttributes={{
@@ -30,10 +37,59 @@ function SEO ({ description, lang, meta, keywords = [], title }) {
             }}
             title={title}
             titleTemplate={title === data.site.title ? '%s' : `%s | ${data.site.title}`}
+            link={[
+              {
+                href: 'https://saturday.chat/favicons/apple-touch-icon.png',
+                sizes: '180x180',
+                rel: 'apple-touch-icon'
+              },
+              {
+                href: 'https://saturday.chat/favicons/favicon-32x32.png',
+                sizes: '32x32',
+                type: 'image/png',
+                rel: 'icon'
+              },
+              {
+                href: 'https://saturday.chat/favicons/favicon-16x16.png',
+                sizes: '16x16',
+                type: 'image/png',
+                rel: 'icon'
+              },
+              {
+                href: 'https://saturday.chat/favicons/site.webmanifest',
+                rel: 'manifest'
+              },
+              {
+                href: 'https://saturday.chat/favicons/safari-pinned-tab.svg',
+                color: '#000000',
+                rel: 'mask-icon'
+              },
+              {
+                href: 'https://saturday.chat/favicons/favicon.ico',
+                rel: 'shortcut icon'
+              },
+              {
+                href:
+                  'https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;600;700&display=swap',
+                rel: 'stylesheet'
+              }
+            ]}
             meta={[
               {
                 name: 'description',
                 content: metaDescription
+              },
+              {
+                property: 'fb:app_id',
+                content: '608466123308002'
+              },
+              {
+                property: 'og:image:width',
+                content: '1920'
+              },
+              {
+                property: 'og:image:height',
+                content: '1080'
               },
               {
                 property: 'og:title',
@@ -62,14 +118,26 @@ function SEO ({ description, lang, meta, keywords = [], title }) {
               {
                 name: 'twitter:description',
                 content: metaDescription
+              },
+              {
+                content: '#2b5797',
+                name: 'msapplication-TileColor'
+              },
+              {
+                content: 'https://cloud.paytm.com/favicons/browserconfig.xml',
+                name: 'msapplication-config'
+              },
+              {
+                content: '#000000',
+                name: 'theme-color'
               }
             ]
               .concat(
                 keywords && keywords.length > 0
                   ? {
-                    name: 'keywords',
-                    content: keywords.join(', ')
-                  }
+                      name: 'keywords',
+                      content: keywords.join(', ')
+                    }
                   : []
               )
               .concat(meta)}

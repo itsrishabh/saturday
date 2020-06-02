@@ -2,11 +2,9 @@ import React from 'react'
 import { buildImageObj } from '../../lib/helpers'
 import { imageUrlFor } from '../../lib/image-url'
 
-import styles from './figure.module.css'
-
-function Figure (props) {
+function Figure(props) {
   return (
-    <figure className={styles.root}>
+    <figure>
       {props.asset && (
         <img
           src={imageUrlFor(buildImageObj(props))
@@ -15,7 +13,7 @@ function Figure (props) {
           alt={props.alt}
         />
       )}
-      <figcaption className={styles.caption}>{props.caption}</figcaption>
+      <figcaption>{props.caption}</figcaption>
     </figure>
   )
 }

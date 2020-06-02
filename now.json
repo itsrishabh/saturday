@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "example-company-website-gatsby-sanity-combo",
+  "name": "saturday",
   "builds": [
     {
       "src": "web/package.json",

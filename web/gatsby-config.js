@@ -1,12 +1,46 @@
-require('dotenv').config()
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
 const {
   api: { projectId, dataset }
 } = requireConfig('../studio/sanity.json')
 
 module.exports = {
   plugins: [
-    'gatsby-plugin-postcss',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-postcss',
+    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-plugin-gtag',
+      trackingId: process.env.GATSBY_GA_ID,
+      // Setting this parameter is optional
+      anonymize: true
+    },
+    {
+      // keep as first gatsby-source-filesystem plugin for gatsby image support
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/static/`,
+        name: 'uploads'
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-netlify',
+      options: {
+        headers: {
+          '/*': [
+            'Access-Control-Allow-Origin: *',
+            'X-XSS-Protection: 0;',
+            'X-Frame-Options: ALLOWALL'
+          ]
+        },
+        mergeSecurityHeaders: true, // boolean to turn off the default security headers
+        mergeLinkHeaders: true, // boolean to turn off the default gatsby js headers
+        mergeCachingHeaders: true, // boolean to turn off the default caching headers
+        transformHeaders: (headers, path) => headers, // optional transform for manipulating headers under each path (e.g.sorting), etc.
+        generateMatchPathRewrites: true // boolean to turn off automatic creation of redirect rules for client only paths
+      }
+    },
     {
       resolve: 'gatsby-source-sanity',
       options: {
@@ -29,7 +63,7 @@ module.exports = {
  * with directions to enter the info manually or in the environment.
  */
 
-function requireConfig (path) {
+function requireConfig(path) {
   try {
     return require(path)
   } catch (e) {

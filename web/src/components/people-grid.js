@@ -3,13 +3,10 @@ import BlockText from './block-text'
 import { buildImageObj } from '../lib/helpers'
 import { imageUrlFor } from '../lib/image-url'
 
-import styles from './people-grid.module.css'
-import { responsiveTitle2 } from '../components/typography.module.css'
-
-function ProfileCard ({ image, name, _rawBio }) {
+function ProfileCard({ image, name, _rawBio }) {
   return (
-    <div className={styles.profileCard}>
-      <div className={styles.profileMediaThumb}>
+    <div>
+      <div>
         {image && image.asset && (
           <img
             src={imageUrlFor(buildImageObj(image))
@@ -20,9 +17,9 @@ function ProfileCard ({ image, name, _rawBio }) {
           />
         )}
       </div>
-      <h2 className={styles.headline}>{name}</h2>
+      <h2>{name}</h2>
       {_rawBio && (
-        <div className={styles.bio}>
+        <div>
           <BlockText blocks={_rawBio} />
         </div>
       )}
@@ -30,11 +27,11 @@ function ProfileCard ({ image, name, _rawBio }) {
   )
 }
 
-function PeopleGrid ({ items, title }) {
+function PeopleGrid({ items, title }) {
   return (
-    <div className={styles.root}>
-      {<h2 className={responsiveTitle2}>{title}</h2>}
-      <ul className={styles.grid}>
+    <div>
+      {<h2>{title}</h2>}
+      <ul>
         {items.map(item => (
           <li key={item.id}>
             <ProfileCard {...item} />

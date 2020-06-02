@@ -7,14 +7,12 @@ import BlockContent from './block-content'
 import Container from './container'
 import RoleList from './role-list'
 
-import styles from './project.module.css'
-
-function Project (props) {
+function Project(props) {
   const { _rawBody, title, categories, mainImage, members, publishedAt, relatedProjects } = props
   return (
-    <article className={styles.root}>
+    <article>
       {props.mainImage && mainImage.asset && (
-        <div className={styles.mainImage}>
+        <div>
           <img
             src={imageUrlFor(buildImageObj(mainImage))
               .width(1200)
@@ -26,23 +24,23 @@ function Project (props) {
         </div>
       )}
       <Container>
-        <div className={styles.grid}>
-          <div className={styles.mainContent}>
-            <h1 className={styles.title}>{title}</h1>
+        <div>
+          <div>
+            <h1>{title}</h1>
             {_rawBody && <BlockContent blocks={_rawBody || []} />}
           </div>
-          <aside className={styles.metaContent}>
+          <aside>
             {publishedAt && (
-              <div className={styles.publishedAt}>
+              <div>
                 {differenceInDays(new Date(publishedAt), new Date()) > 3
                   ? distanceInWords(new Date(publishedAt), new Date())
                   : format(new Date(publishedAt), 'MMMM Do YYYY')}
               </div>
             )}
-            {members && <RoleList items={members} title='Authors' />}
+            {members && <RoleList items={members} title="Authors" />}
             {categories && (
-              <div className={styles.categories}>
-                <h3 className={styles.categoriesHeadline}>Categories</h3>
+              <div>
+                <h3>Categories</h3>
                 <ul>
                   {categories.map(category => (
                     <li key={category._id}>{category.title}</li>
@@ -51,8 +49,8 @@ function Project (props) {
               </div>
             )}
             {relatedProjects && (
-              <div className={styles.relatedProjects}>
-                <h3 className={styles.relatedProjectsHeadline}>Related projects</h3>
+              <div>
+                <h3>Related projects</h3>
                 <ul>
                   {relatedProjects.map(project => (
                     <li key={`related_${project._id}`}>

@@ -2,13 +2,11 @@ import { Link } from 'gatsby'
 import React from 'react'
 import ProjectPreview from './project-preview'
 
-import styles from './project-preview-grid.module.css'
-
-function ProjectPreviewGrid (props) {
+function ProjectPreviewGrid(props) {
   return (
-    <div className={styles.root}>
+    <div>
       {props.title && (
-        <h2 className={styles.headline}>
+        <h2>
           {props.browseMoreHref ? (
             <Link to={props.browseMoreHref}>{props.title}</Link>
           ) : (
@@ -16,7 +14,7 @@ function ProjectPreviewGrid (props) {
           )}
         </h2>
       )}
-      <ul className={styles.grid}>
+      <ul>
         {props.nodes &&
           props.nodes.map(node => (
             <li key={node.id}>
@@ -25,7 +23,7 @@ function ProjectPreviewGrid (props) {
           ))}
       </ul>
       {props.browseMoreHref && (
-        <div className={styles.browseMoreNav}>
+        <div>
           <Link to={props.browseMoreHref}>Browse more</Link>
         </div>
       )}

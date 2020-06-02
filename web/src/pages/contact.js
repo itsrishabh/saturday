@@ -6,8 +6,6 @@ import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
 
-import { responsiveTitle1 } from '../components/typography.module.css'
-
 export const query = graphql`
   query ContactPageQuery {
     page: sanityPage(_id: { regex: "/(drafts.|)contact/" }) {
@@ -40,7 +38,7 @@ const ContactPage = props => {
     <Layout>
       <SEO title={page.title} />
       <Container>
-        <h1 className={responsiveTitle1}>{page.title}</h1>
+        <h1>{page.title}</h1>
         <BlockContent blocks={page._rawBody || []} />
       </Container>
     </Layout>

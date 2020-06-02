@@ -4,13 +4,10 @@ import { buildImageObj, cn, getBlogUrl } from '../lib/helpers'
 import { imageUrlFor } from '../lib/image-url'
 import BlockText from './block-text'
 
-import styles from './blog-post-preview.module.css'
-import { responsiveTitle3 } from './typography.module.css'
-
-function BlogPostPreview (props) {
+function BlogPostPreview(props) {
   return (
-    <Link className={styles.root} to={getBlogUrl(props.publishedAt, props.slug.current)}>
-      <div className={styles.leadMediaThumb}>
+    <Link to={getBlogUrl(props.publishedAt, props.slug.current)}>
+      <div>
         {props.mainImage && props.mainImage.asset && (
           <img
             src={imageUrlFor(buildImageObj(props.mainImage))
@@ -21,9 +18,9 @@ function BlogPostPreview (props) {
           />
         )}
       </div>
-      <h3 className={cn(responsiveTitle3, styles.title)}>{props.title}</h3>
+      <h3>{props.title}</h3>
       {props._rawExcerpt && (
-        <div className={styles.excerpt}>
+        <div>
           <BlockText blocks={props._rawExcerpt} />
         </div>
       )}

@@ -1,11 +1,11 @@
 {
   "root": true,
   "api": {
-    "projectId": "9nhae6b7",
+    "projectId": "55n5wmav",
     "dataset": "production"
   },
   "project": {
-    "name": "Gatsby Demo",
+    "name": "Saturday Studio",
     "basePath": "/"
   },
   "plugins": [

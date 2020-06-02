@@ -1,11 +1,15 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { mapEdgesToNodes, filterOutDocsWithoutSlugs } from '../lib/helpers'
+
+import { mapEdgesToNodes, filterOutDocsWithoutSlugs, buildImageObj } from '../lib/helpers'
+import { imageUrlFor } from '../lib/image-url'
+
 import BlogPostPreviewGrid from '../components/blog-post-preview-grid'
-import Container from '../components/container'
-import GraphQLErrorList from '../components/graphql-error-list'
 import ProjectPreviewGrid from '../components/project-preview-grid'
+import GraphQLErrorList from '../components/graphql-error-list'
+import Container from '../components/container'
 import SEO from '../components/seo'
+
 import Layout from '../containers/layout'
 
 export const query = graphql`
@@ -13,6 +17,11 @@ export const query = graphql`
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       description
+      image {
+        asset {
+          _id
+        }
+      }
       keywords
     }
 
@@ -116,21 +125,30 @@ const IndexPage = props => {
 
   return (
     <Layout>
-      <SEO title={site.title} description={site.description} keywords={site.keywords} />
+      <SEO
+        title={site.title}
+        description={site.description}
+        keywords={site.keywords}
+        image={
+          site.image && site.image.asset && site.image.asset._id
+            ? imageUrlFor(buildImageObj(site.image))
+            : false
+        }
+      />
       <Container>
         <h1 hidden>Welcome to {site.title}</h1>
         {projectNodes && (
           <ProjectPreviewGrid
-            title='Latest projects'
+            title="Latest projects"
             nodes={projectNodes}
-            browseMoreHref='/projects/'
+            browseMoreHref="/projects/"
           />
         )}
         {postNodes && (
           <BlogPostPreviewGrid
-            title='Latest blog posts'
+            title="Latest blog posts"
             nodes={postNodes}
-            browseMoreHref='/blog/'
+            browseMoreHref="/blog/"
           />
         )}
       </Container>
