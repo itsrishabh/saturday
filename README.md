@@ -1,126 +1,131 @@
-# Gatsby + Netlify CMS Starter
+# A sample company website built with [Gatsby](https://www.gatsbyjs.org/) & [Sanity.io](https://www.sanity.io)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b654c94e-08a6-4b79-b443-7837581b1d8d/deploy-status)](https://app.netlify.com/sites/gatsby-starter-netlify-cms-ci/deploys)
+This examples combines [Gatsby](https://www.gatsbyjs.org/) site generation with [Sanity](https://www.sanity.io) content management in a neat little company website. Read [the blog post](https://www.sanity.io/blog/get-started-with-gatsby-and-structured-content) and [see the getting started video](https://www.youtube.com/watch?v=qU4lFYp3KiQ).
 
-**Note:** This starter uses [Gatsby v2](https://www.gatsbyjs.org/blog/2018-09-17-gatsby-v2/).
+- [Features](#features)
+- [Installation](#installation)
+- [Enable Gatsby watch mode for drafts](#enable-gatsby-watch-mode-for-drafts)
+- [Usage example](#usage-example)
+- [Development setup](#development-setup)
+  - [Run it](#run-it)
+  - [Development workflow](#development-workflow)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-This repo contains an example business website that is built with [Gatsby](https://www.gatsbyjs.org/), and [Netlify CMS](https://www.netlifycms.org): **[Demo Link](https://gatsby-netlify-cms.netlify.com/)**.
+[![Watch a video about the company website built with Gatsby using Sanity.io as a headless CMS](https://cdn.sanity.io/images/3do82whm/production/4f652e6d114e7010aa633b81cbcb97c335980fc8-1920x1080.png?w=500)](https://www.youtube.com/watch?v=STtpXBvJmDA)
 
-It follows the [JAMstack architecture](https://jamstack.org) by using Git as a single source of truth, and [Netlify](https://www.netlify.com) for continuous deployment, and CDN distribution.
+[See the example up and running](https://www.youtube.com/watch?v=STtpXBvJmDA)
 
 ## Features
 
-- A simple landing page with blog functionality built with Netlify CMS
-- Editabe Pages: Landing, About, Product, Blog-Collection and Contact page with Netlify Form support
-- Create Blog posts from Netlify CMS
-- Tags: Separate page for posts under each tag
-- Basic directory organization
-- Uses Bulma for styling, but size is reduced by `purge-css-plugin`
-- Blazing fast loading times thanks to pre-rendered HTML and automatic chunk loading of JS files
-- Uses `gatsby-image` with Netlify-CMS preview support
-- Separate components for everything
-- Netlify deploy configuration
-- Netlify function support, see `lambda` folder
-- Perfect score on Lighthouse for SEO, Accessibility and Performance (wip:PWA)
-- ..and more
+**A company website built with Gatsby**
+  * 📡 Real-time content preview in development
+  * ⏱ Fast & frugal builds
+  * 🗃 No accidental missing fields/types
+  * 🧰 Full Render Control with Portable Text
+  * 📸 gatsby-image support
+  * 🔧 Minimal configuration
 
-## Prerequisites
+**Sanity Studio with a schema for**
+  * 🏢 Company info
+  * 📃 Pages
+  * 👨🏼‍🎨 Projects
+  * 👩🏾‍💻 People
+  * 📰 Blog posts
 
-- Node (I recommend using v8.2.0 or higher)
-- [Gatsby CLI](https://www.gatsbyjs.org/docs/)
-- [Netlify CLI](https://github.com/netlify/cli)
+## Installation
 
-## Getting Started (Recommended)
+Read the [step-by-step blog post](https://www.sanity.io/blog/how-to-quickly-set-up-a-gatsby-js-jamstack-website-with-a-headless-cms).
 
-Netlify CMS can run in any frontend web environment, but the quickest way to try it out is by running it on a pre-configured starter site with Netlify. The example here is the Kaldi coffee company template (adapted from [One Click Hugo CMS](https://github.com/netlify-templates/one-click-hugo-cms)). Use the button below to build and deploy your own copy of the repository:
+```sh
+git clone git@github.com:sanity-io/example-company-website-gatsby-sanity-combo.git
+cd example-company-website-gatsby-sanity-combo
+npm install
 
-<a href="https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/gatsby-starter-netlify-cms&amp;stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>
-
-After clicking that button, you’ll authenticate with GitHub and choose a repository name. Netlify will then automatically create a repository in your GitHub account with a copy of the files from the template. Next, it will build and deploy the new site on Netlify, bringing you to the site dashboard when the build is complete. Next, you’ll need to set up Netlify’s Identity service to authorize users to log in to the CMS.
-
-### Access Locally
-
-Pulldown a local copy of the Github repository Netlify created for you, with the name you specified in the previous step
-```
-$ git clone https://github.com/[GITHUB_USERNAME]/[REPO_NAME].git
-$ cd [REPO_NAME]
-$ yarn
-$ netlify dev # or ntl dev
-```
-
-This uses the new [Netlify Dev](https://www.netlify.com/products/dev/?utm_source=blog&utm_medium=netlifycms&utm_campaign=devex) CLI feature to serve any functions you have in the `lambda` folder.
-
-To test the CMS locally, you'll need to run a production build of the site:
+# Install or upgrade the Sanity CLI to
+# make sure you are on v0.140.0 or higher
+npm install -g @sanity/cli
+# Set up Sanity.io account and project (≈ 45s)
+npm run init
 
 ```
-$ npm run build
-$ netlify dev # or ntl dev
+
+See the [getting started video](https://www.youtube.com/watch?v=qU4lFYp3KiQ) for a walkthrough of the installation.
+
+## Enable Gatsby watch mode for drafts
+
+We have enabled the watch mode in the `gatsby-source-sanity` plugin, which means that your frontend will automatically update with content changes whenever you publish them. If you want the frontend to show content changes in real time, you must do the following:
+
+* Go to [manage.sanity.io](https://manage.sanity.io) and find your project (or run the command `sanity manage` in the studio folder)
+* Navigate to Settings->API and scroll down to the **Tokens** section
+* Add a new token and give it **read** privileges.
+* Copy the `.env-example` file to a file called `.env` in the `/web` folder
+* Add your new token to the key: `SANITY_TOKEN="<token here>"`
+
+If you restart the local development server, it will now show unpublished changes from the Studio. Note that the `.env` file is ignored by Git, because the token gives access to unpublished content in the API.
+
+## Usage example
+
+This project demos Sanity.io with Gatsby using our [source plugin](https://www.gatsbyjs.org/packages/gatsby-source-sanity). It's a good starter for a simple company site, a portfolio site for an agency or a personal blog with an attached portfolio.
+
+We tried to strike a balance between a useful example and a minimal footprint to make it easier to iterate on design and content model. [Let us know](https://slack.sanity.io) should you have questions!
+
+## Development setup
+
+### Run it
+
+```sh
+npm start
+# Studio at http://localhost:3333
+# Web frontend at http://localhost:8000
+# GraphiQL explorer at http://localhost:8000/___graphql
 ```
 
-### Media Libraries (installed, but optional)
 
-Media Libraries have been included in this starter as a default. If you are not planning to use `Uploadcare` or `Cloudinary` in your project, you **can** remove them from module import and registration in `src/cms/cms.js`. Here is an example of the lines to comment or remove them your project.
 
-```javascript
-import CMS from 'netlify-cms-app'
-// import uploadcare from 'netlify-cms-media-library-uploadcare'
-// import cloudinary from 'netlify-cms-media-library-cloudinary'
 
-import AboutPagePreview from './preview-templates/AboutPagePreview'
-import BlogPostPreview from './preview-templates/BlogPostPreview'
-import ProductPagePreview from './preview-templates/ProductPagePreview'
-import IndexPagePreview from './preview-templates/IndexPagePreview'
+### Development workflow
 
-// CMS.registerMediaLibrary(uploadcare);
-// CMS.registerMediaLibrary(cloudinary);
+We wrote a [blog post](https://www.sanity.io/blog/get-started-with-gatsby-and-structured-content) about how to use this example, but if you would like to just start tinkering:
 
-CMS.registerPreviewTemplate('index', IndexPagePreview)
-CMS.registerPreviewTemplate('about', AboutPagePreview)
-CMS.registerPreviewTemplate('products', ProductPagePreview)
-CMS.registerPreviewTemplate('blog', BlogPostPreview)
+- The Sanity Studio keeps its schemas in `./studio/schemas`. We will hot reload the editor when you edit them so just start experimenting. [Read more about our schemas here](https://www.sanity.io/docs/content-studio/the-schema).
+- We followed Gatsby conventions and [you can read all about them here](https://www.gatsbyjs.org/tutorial/).
+- If you want Gatsby to not throw errors on missing fields for unpopulated data you need to redeploy the GraphQL API so we can generate schemas – `npm run graphql-deploy`
+
+
+## Deployment
+
+```sh
+# Deploy a GraphQL API and schema to Sanity
+npm run graphql-deploy
+
+# Deploy the Sanity Studio to *.sanity.studio
+npm run sanity-deploy
+
+# Build & deploy to Zeit's Now. Remember to set `basePath` to "/studio" in sanity.json
+npm run now-deploy
 ```
 
-Note: Don't forget to also remove them from `package.json` and `yarn.lock` / `package-lock.json` using `yarn` or `npm`. During the build netlify-cms-app will bundle the media libraries as well, having them removed will save you build time.
-Example:
-```
-yarn remove netlify-cms-media-library-uploadcare
-```
-OR
-```
-yarn remove netlify-cms-media-library-cloudinary
-```
-## Getting Started (Without Netlify)
+> **Deploy on Netlify:** If you want to deploy the Gatsby site to Netlify we added a netlify.toml config for you.
+>
+> Fork or clone the example to your GitHub account. After adding your repo to Netlify you’ll get automatic builds & deploys when pushing to master. You can also add a [webhook](https://www.sanity.io/docs/webhooks) to get deploys on content changes.
 
-```
-$ gatsby new [SITE_DIRECTORY_NAME] https://github.com/netlify-templates/gatsby-starter-netlify-cms/
-$ cd [SITE_DIRECTORY_NAME]
-$ npm run build
-$ npm run serve
-```
 
-### Setting up the CMS
+**Deploy on Cloudflare:** If you want to deploy the Gatsby site to Cloudflare we added a wrangler.toml and `workers-site/` to both studio and web.
 
-Follow the [Netlify CMS Quick Start Guide](https://www.netlifycms.org/docs/quick-start/#authentication) to set up authentication, and hosting.
+* Follow quickstart for wrangler: https://developers.cloudflare.com/workers/quickstart
+* Edit wrangler.toml's according to where you'd like studio and web to get deployed to
+* Run `npm run worker-deploy`
 
-## Debugging
+## Contributing
 
-Windows users might encounter `node-gyp` errors when trying to npm install.
-To resolve, make sure that you have both Python 2.7 and the Visual C++ build environment installed.
+1. [Fork it](https://https://github.com/sanity-io/example-company-website-gatsby-sanity-combo/fork)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
 
-```
-npm config set python python2.7
-npm install --global --production windows-build-tools
-```
+## License
 
-[Full details here](https://www.npmjs.com/package/node-gyp 'NPM node-gyp page')
-
-MacOS users might also encounter some errors, for more info check [node-gyp](https://github.com/nodejs/node-gyp). We recommend using the latest stable node version.
-
-## Purgecss
-
-This plugin uses [gatsby-plugin-purgecss](https://www.gatsbyjs.org/packages/gatsby-plugin-purgecss/) and [bulma](https://bulma.io/). The bulma builds are usually ~170K but reduced 90% by purgecss.
-
-# CONTRIBUTING
-
-Contributions are always welcome, no matter how large or small. Before contributing,
-please read the [code of conduct](CODE_OF_CONDUCT.md).
+MIT
