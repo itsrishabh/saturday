@@ -9,7 +9,12 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-postcss',
-    'gatsby-plugin-sass',
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        postCssPlugins: [require('tailwindcss')]
+      }
+    },
     {
       resolve: 'gatsby-plugin-gtag',
       trackingId: process.env.GATSBY_GA_ID,

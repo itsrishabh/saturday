@@ -1,39 +1,49 @@
 import React from 'react'
+
+import { initGA, logPageView } from '../utils/analytics'
+
 import Header from './header'
+import Footer from './footer'
 
-const Layout = ({ children, companyInfo, onHideNav, onShowNav, showNav, siteTitle }) => (
-  <>
-    <Header siteTitle={siteTitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} />
-    <div>{children}</div>
-    <footer>
-      <div>
-        <div>
-          {companyInfo && (
-            <div>
-              {companyInfo.name}
-              <br />
-              {companyInfo.address1}
-              <br />
-              {companyInfo.address2 && (
-                <span>
-                  {companyInfo.address2}
-                  <br />
-                </span>
-              )}
-              {companyInfo.zipCode} {companyInfo.city}
-              {companyInfo.country && <span>, {companyInfo.country}</span>}
-            </div>
-          )}
-        </div>
+import '../styles/all.sass'
 
-        <div>
-          © {new Date().getFullYear()}, Built with <a href="https://www.sanity.io">Sanity</a> &amp;
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </div>
-      </div>
-    </footer>
-  </>
-)
+class Layout extends React.Component {
+  componentDidMount() {
+    if (!window.GA_INITIALIZED) {
+      initGA()
+      window.GA_INITIALIZED = true
+    }
+    logPageView()
+  }
+
+  render() {
+    const { bgImage, children, companyInfo, siteTitle } = this.props
+
+    return (
+      <>
+        <Header siteTitle={siteTitle} company={companyInfo.name} />
+        {children}
+        <Footer
+          country={companyInfo.country}
+          company={companyInfo.name}
+          email={companyInfo.email}
+          city={companyInfo.city}
+        />
+        {bgImage ? (
+          <div
+            className="background-image inline-block fixed bottom-0 left-0 w-full h-full"
+            style={{
+              backgroundImage: `url(${bgImage})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center center',
+              backgroundAttachment: 'fixed',
+              backgroundSize: 'cover'
+            }}
+          ></div>
+        ) : null}
+      </>
+    )
+  }
+}
 
 export default Layout
