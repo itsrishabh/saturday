@@ -81,7 +81,7 @@ function SEO({ description, image, lang, meta, keywords = [], title, url }) {
               },
               {
                 property: 'fb:app_id',
-                content: '608466123308002'
+                content: '480212622585685'
               },
               {
                 property: 'og:image:width',

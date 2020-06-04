@@ -1,4 +1,5 @@
 import React from 'react'
+import { ParallaxProvider } from 'react-scroll-parallax'
 
 import { initGA, logPageView } from '../utils/analytics'
 
@@ -22,13 +23,13 @@ class Layout extends React.Component {
     return (
       <>
         <Header siteTitle={siteTitle} company={companyInfo.name} />
-        {children}
-        <Footer
+        <ParallaxProvider>{children}</ParallaxProvider>
+        {/* <Footer
           country={companyInfo.country}
           company={companyInfo.name}
           email={companyInfo.email}
           city={companyInfo.city}
-        />
+        /> */}
         {bgImage ? (
           <div
             className="background-image inline-block fixed bottom-0 left-0 w-full h-full"

@@ -117,7 +117,7 @@ const Footer = class extends React.Component {
     )
 
     return (
-      <footer className="inline-block w-full pt-12">
+      <footer className="inline-block w-full py-6 px-6">
         <Container>
           {/* Top line */}
           <div className="inline-block md:flex items-start justify-between w-full">
