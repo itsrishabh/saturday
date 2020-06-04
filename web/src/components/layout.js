@@ -22,7 +22,7 @@ class Layout extends React.Component {
 
     return (
       <>
-        <Header siteTitle={siteTitle} company={companyInfo.name} />
+        <Header siteTitle={siteTitle} />
         <ParallaxProvider>{children}</ParallaxProvider>
         {/* <Footer
           country={companyInfo.country}
