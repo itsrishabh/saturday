@@ -92,6 +92,10 @@ function SEO({ description, image, lang, meta, keywords = [], title, url }) {
                 content: '1080'
               },
               {
+                property: 'og:image',
+                content: socialImage
+              },
+              {
                 property: 'og:title',
                 content: title
               },
@@ -102,6 +106,10 @@ function SEO({ description, image, lang, meta, keywords = [], title, url }) {
               {
                 property: 'og:type',
                 content: 'website'
+              },
+              {
+                property: 'og:url',
+                content: siteUrl
               },
               {
                 name: 'twitter:card',
@@ -124,7 +132,7 @@ function SEO({ description, image, lang, meta, keywords = [], title, url }) {
                 name: 'msapplication-TileColor'
               },
               {
-                content: 'https://cloud.paytm.com/favicons/browserconfig.xml',
+                content: 'https://saturday.chat/favicons/browserconfig.xml',
                 name: 'msapplication-config'
               },
               {
