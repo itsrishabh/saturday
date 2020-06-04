@@ -112,8 +112,16 @@ function SEO({ description, image, lang, meta, keywords = [], title, url }) {
                 content: siteUrl
               },
               {
+                property: 'twitter:image',
+                content: socialImage
+              },
+              {
+                property: 'twitter:title',
+                content: title
+              },
+              {
                 name: 'twitter:card',
-                content: 'summary'
+                content: 'summary_large_image'
               },
               {
                 name: 'twitter:creator',
