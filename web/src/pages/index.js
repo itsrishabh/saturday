@@ -127,7 +127,7 @@ const IndexPage = props => {
     {
       title: 'Half the monthly cost (so $4.50) are re-invested',
       description:
-        'We take half the revenue and re-invest that into community funds across the globe. Anyone can then contribute or withdraw from the fund.'
+        'We take half the revenue and re-invest that into community funds across the globe. Anyone can then contribute to or withdraw from the fund.'
     },
     {
       title: 'Anyone can contribute or withdraw',
@@ -137,7 +137,7 @@ const IndexPage = props => {
     {
       title: 'The money sits in a pool',
       description:
-        'Any money in the fund will be automatically invested and gaining interest, in theory this should beat inflation and hopefully can kick back some cost of living costs per year to members.'
+        'Any money in the fund will be automatically invested and gaining interest, in theory this should beat inflation and hopefully can kick back some cost of living expenses per year to members.'
     },
     {
       title: 'The funds _could_ be insured',
@@ -149,7 +149,7 @@ const IndexPage = props => {
   const faq = [
     {
       title: 'How does this make money?',
-      description: "Does it need to? Can't we just keep self-sustaining communities globally?"
+      description: "Does it need to? Can't we just build self-sustaining communities globally?"
     },
     {
       title: 'Can this become a business?',
